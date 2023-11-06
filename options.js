@@ -4,6 +4,7 @@ const textAlignELements = document.getElementsByClassName("text-align");
 const fontSizeSelector = document.getElementById("font-size-selector");
 
 const fontFamilySelector = document.getElementById("font-selector");
+
 //menuItems
 const bold = document.getElementById("bold");
 const italic = document.getElementById("italic");
@@ -114,6 +115,7 @@ function changeButtonState(button, selectedButton) {
   if (button.id === "font-size-selector")
     fontSizeSelector.value = selectedButton;
 }
+
 
 function manageButtonState(computedStyle) {
   //bold

@@ -160,33 +160,3 @@ function calculateMin(e) {
     activeCell.removeEventListener("keydown", calculateMin);
   }
 }
-
-
-//For Formula 
-const formulaInput = document.querySelector(".formulas");
-
-formulaInput.addEventListener("keydown", function (e) {
-  if (e.key === "Enter") {
-    // Get the formula from the formula input
-    const formula = formulaInput.textContent;
-
-    // Get the active cell (selected cell) or the first cell by default
-    const activeCell = document.querySelector(".input-cell.selected") || document.querySelector(".input-cell");
-
-    // Calculate the result of the formula
-    const result = evaluateFormula(formula);
-
-    // Set the result in the active cell
-    activeCell.textContent = result;
-  }
-});
-
-// Function to evaluate a formula
-function evaluateFormula(formula) {
-  try {
-    return eval(formula);
-  } catch (error) {
-    console.error("Error evaluating the formula:", error);
-    return "Error";
-  }
-}
