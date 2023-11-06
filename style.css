@@ -288,6 +288,7 @@ background-color: white;
 
 .cell {
   align-items: center;
+  justify-content: center;
   border: 1px solid #d8d8d8;
   border-right-width: 0px;
   border-top-width: 0px;
