@@ -4,159 +4,383 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Untitled spreadsheet - Google Sheets</title>
-    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="style.css" />
     <link
-      rel="stylesheet"
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      rel="shortcut icon"
+      href="./favicon.ico"
     />
   </head>
-
   <body>
-    <div class="container">
-      <div class="title-bar"></div>
-      <!-- Menubar -->
-      <div class="menu-bar">
-        <div class="menu-file menu-item">File</div>
-        <div class="menu-home menu-item selected">Home</div>
-        <div class="menu-insert menu-item">Insert</div>
-        <div class="menu-layout menu-item">Layout</div>
-        <div class="menu-help menu-item">Help</div>
-      </div>
-      <!-- Toolbar -->
-      <div class="menu-icon-bar">
-        <div class="material-icons menu-icon icon-cut">content_cut</div>
-        <div class="material-icons menu-icon icon-copy">content_copy</div>
-        <div class="material-icons menu-icon icon-paste">content_paste</div>
-        <select class="selector font-family-selector" id="font-family">
-          <option style="font-family: monospace" value="monospace">
-            MonoSpace
-          </option>
-          <option style="font-family: Arial" value="Arial">Arial</option>
-          <option style="font-family: Calibri" value="Calibri">Calibri</option>
-          <option style="font-family: Comic Sans MS" value="Comic Sans MS">
-            Comic Sans MS
-          </option>
-          <option style="font-family: Courier New" value="Courier New">
-            Courier New
-          </option>
-          <option style="font-family: Impact" value="Impact">Impact</option>
-          <option style="font-family: Georgia" value="Georgia">Georgia</option>
-          <option style="font-family: Lato" value="Lato">Lato</option>
-          <option style="font-family: Open Sans" value="Open Sans">
-            Open Sans
-          </option>
-          <option style="font-family: Palatino" value="Palatino">
-            Palatino
-          </option>
-          <option style="font-family: Verdana" value="Verdana">Verdana</option>
-        </select>
-        <select class="selector font-size-selector" id="size-selector">
-          <option value="10">10</option>
-          <option value="12">12</option>
-          <option value="14" selected>14</option>
-          <option value="16">16</option>
-          <option value="18">18</option>
-          <option value="20">20</option>
-          <option value="22">22</option>
-          <option value="24">24</option>
-          <option value="26">26</option>
-          <option value="28">28</option>
-          <option value="30">30</option>
-          <option value="32">32</option>
-          <option value="36">36</option>
-          <option value="38">38</option>
-          <option value="40">40</option>
-          <option value="42">42</option>
-          <option value="44">44</option>
-          <option value="46">46</option>
-          <option value="48">48</option>
-        </select>
-        <div class="material-icons menu-icon icon-bold style-icon">
-          format_bold
-        </div>
-        <div class="material-icons menu-icon icon-italic style-icon">
-          format_italic
-        </div>
-        <div class="material-icons menu-icon icon-underline style-icon">
-          format_underline
-        </div>
-        <div
-          class="material-icons menu-icon icon-align_left selected align-icon"
-        >
-          format_align_left
-        </div>
-        <div class="material-icons menu-icon icon-align_center align-icon">
-          format_align_center
-        </div>
-        <div class="material-icons menu-icon icon-align_right align-icon">
-          format_align_right
-        </div>
-        <div class="menu-icon icon-color_fill">
-          <input class="color-picker background-color-picker" type="color" />
-          <div class="material-icons" id="col">format_color_fill</div>
-        </div>
-        <div class="menu-icon icon-color_text">
-          <input class="color-picker text-color-picker" type="color" />
-          <div class="material-icons">format_color_text</div>
-        </div>
-        <!-- To export -->
-        <span class="material-icons download style-icon"> cloud_download </span>
-        <!-- To import -->
-        <span class="material-icons import style-icon"> cloud_upload </span>
+    <main
+      style="
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+      "
+      id="main"
+    >
+      <header>
+        <div class="options">
+          <div class="indexOption" style="background-color: #f9fbfd">
+            <ul style="display: flex; list-style-type: none">
+              <li>
+                <ul
+                  style="
+                    display: flex;
+                    list-style-type: none;
+                    padding-top: 15px;
+                    gap: 15px;
+                  "
+                  id="indexOptionList"
+                >
+                  <li>File</li>
+                  <li id="Home" style="background-color: white;">Home</li>
+                  <li>Insert</li>
+                  <li>Layout</li>
+                  <li>Help</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
 
-        <span
-          id="functions"
-          class="material-icons functions sss"
-          onclick="onClickFunctions(this)"
-          style="background: transparent; display: flex; right: 10px;"
-        >
-          search
-        </span>
-        <span
-          contenteditable="true"
-          class="search"
-          id="searchInput"
-          style="padding-left: 10px"
-        >
-          Find in sheet
-        </span>
-      </div>
-      <div class="formula-bar">
-        <div class="formula-editor selected-cell"></div>
-        <div class="function-sign">
-          <img
-            class="formula-icon"
-            style="width: 1.1rem; height: auto; align-items: center"
-            src="https://img.icons8.com/ios/50/000000/formula-fx.png"
-          />
-        </div>
-        <div
-          class="formula-editor formula-input"
-          style="align-items: center"
-          contenteditable="true"
-        ></div>
-      </div>
-      <!-- Main body -->
-      <div class="data-container">
-        <div class="select-all"></div>
-        <div class="column-name-container"></div>
-        <div class="row-name-container"></div>
-        <div class="input-cell-container"></div>
-      </div>
-      <!-- Footer -->
-      <div class="sheet-actions-container">
-        <div class="sheet-add-icon">
-          <span class="material-icons"> post_add </span>
-        </div>
-        <div class="sheets-folder-container">
-          <div class="sheet-folder" id="0">
-            <div class="sheet-content">Sheet 1</div>
+
+          <div class="menuOption" style="background-color: #f9fbfd">
+            <ul id="menuOptionList">
+              <li>
+                <div
+                  id="copy"
+                  class="material-icons"
+                  onclick="onClickCopy(this)"
+                >
+                  content_copy
+                </div>
+                <div
+                  class="hoverSuggetion"
+                  style="padding: 5px 10px; left: -5px"
+                >
+                  Copy
+                </div>
+              </li>
+              <li>
+                <div id="cut" class="material-icons" onclick="onClickCut(this)">
+                  content_cut
+                </div>
+                <div
+                  class="hoverSuggetion"
+                  style="padding: 5px 10px; left: -5px"
+                >
+                  Cut
+                </div>
+              </li>
+              <li>
+                <div
+                  id="paste"
+                  class="material-icons"
+                  onclick="onClickPaste(this)"
+                >
+                  content_paste
+                </div>
+                <div
+                  class="hoverSuggetion"
+                  style="padding: 5px 10px; left: -15px"
+                >
+                  Paste
+                </div>
+              </li>
+              <li>
+                <div class="vertical-line" style="padding: 0"></div>
+              </li>
+              <li style="background-color: #edf2fa">
+                <div
+                  class="material-icons"
+                  style="background-color: #edf2fa; display: flex"
+                >
+                  <select id="font-selector" style="width: 100px">
+                    <option value='"open Sans"'>Open Sans</option>
+                    <option value="Arial, sans-serif">Arial</option>
+                    <option value="Verdana, sans-serif">Verdana</option>
+                    <option value="Georgia, serif">Georgia</option>
+                    <option value='"Times New Roman", serif'>
+                      Times New Roman
+                    </option>
+                    <option value='"Courier New", monospace'>
+                      Courier New
+                    </option>
+                  </select>
+                </div>
+              </li>
+              <li style="background-color: #edf2fa">
+                <div
+                  class="material-icons"
+                  style="background-color: #edf2fa; display: flex"
+                >
+                  <select id="font-size-selector" style="width: 70px">
+                    <option value="13px">14px</option>
+                    <option value="12px">12px</option>
+                    <option value="16px">16px</option>
+                    <option value="20px">20px</option>
+                    <option value="24px">24px</option>
+                    <option value="28px">28px</option>
+                    <option value="32px">32px</option>
+                  </select>
+                </div>
+              </li>
+              <li>
+                <div class="vertical-line" style="padding: 0"></div>
+              </li>
+              <li style="position: relative">
+                <div
+                  id="bold"
+                  class="material-icons"
+                  onclick="onClickBold(this)"
+                >
+                  format_bold
+                </div>
+                <div
+                  class="hoverSuggetion"
+                  style="padding: 5px 10px; left: -10px"
+                >
+                  Bold
+                </div>
+              </li>
+              <li style="position: relative">
+                <div
+                  id="italic"
+                  class="material-icons"
+                  onclick="onClickItalic(this)"
+                >
+                  format_italic
+                </div>
+                <div
+                  class="hoverSuggetion"
+                  style="padding: 5px 10px; left: -10px"
+                >
+                  Italic
+                </div>
+              </li>
+              <li style="position: relative">
+                <div
+                  id="underline"
+                  class="material-icons"
+                  onclick="onClickUnderline(this)"
+                >
+                  format_underlined
+                </div>
+                <div
+                  class="hoverSuggetion"
+                  style="padding: 5px 10px; left: -25px"
+                >
+                  Underline
+                </div>
+              </li>
+              <li style="position: relative">
+                <div
+                  id="leftAlign"
+                  class="material-icons text-align"
+                  data-value="start"
+                  onclick="onClickTextAlign(this)"
+                >
+                  format_align_left
+                </div>
+                <div
+                  class="hoverSuggetion"
+                  style="padding: 5px 10px; left: -30px"
+                >
+                  Align Left
+                </div>
+              </li>
+              <li style="position: relative">
+                <div
+                  id="centerAlign"
+                  class="material-icons text-align"
+                  data-value="center"
+                  onclick="onClickTextAlign(this)"
+                >
+                  format_align_center
+                </div>
+                <div
+                  class="hoverSuggetion"
+                  style="padding: 5px 10px; left: -30px"
+                >
+                  Align Center
+                </div>
+              </li>
+              <li style="position: relative">
+                <div
+                  id="rightAlign"
+                  class="material-icons text-align"
+                  data-value="right"
+                  onclick="onClickTextAlign(this)"
+                >
+                  format_align_right
+                </div>
+                <div
+                  class="hoverSuggetion"
+                  style="padding: 5px 10px; left: -30px"
+                >
+                  Align Right
+                </div>
+              </li>
+              <li>
+                <div class="vertical-line" style="padding: 0"></div>
+              </li>
+              <li style="position: relative">
+                <div class="" id="text-color">
+                  <label for="color-picker"
+                    ><span class="material-icons">
+                      format_color_text
+                    </span></label
+                  >
+                  <input
+                    type="color"
+                    name=""
+                    id="color-picker"
+                    style="width: 0px; height: 0px"
+                    class="font-color-prop"
+                    onchange="onChangeTextColor(this)"
+                  />
+                </div>
+                <div
+                  class="hoverSuggetion"
+                  style="padding: 5px 10px; left: -30px"
+                >
+                  Text Color
+                </div>
+              </li>
+              <li style="position: relative">
+                <div class="" id="bgcolor-picker">
+                  <label for="bg-color-picker"
+                    ><span class="material-icons">
+                      format_color_fill
+                    </span></label
+                  >
+                  <input
+                    type="color"
+                    name=""
+                    id="bg-color-picker"
+                    style="width: 0; height: 0"
+                    onchange="onChangeBackgroundColor(this)"
+                  />
+                  
+                </div>
+                <div
+                  class="hoverSuggetion"
+                  style="padding: 5px 10px; left: -50px"
+                >
+                  Background Color
+                </div>
+                
+              </li>
+                <li>
+                  <div class="material-icons" 
+                  id="uploadElement"
+                  style="font-size: 20px">
+                  cloud_upload
+                  </div>
+                  <div
+                    class="hoverSuggetion"
+                    style="padding: 5px 10px; left: -10px"
+                  >
+                    Upload
+                  </div>
+                </li>
+                <li>
+                  <div
+                    class="material-icons"
+                    style="font-size: 20px"
+                    onclick="exportFile(this)"
+                  >
+                    cloud_download
+                  </div>
+                  <div
+                    class="hoverSuggetion"
+                    style="padding: 5px 10px; left: -10px"
+                  >
+                    Download
+                  </div>
+                  </li>
+              <!-- For Search -->
+              <li>
+                <div class="vertical-line" style="padding: 0"></div>
+              </li>
+              </li>
+              <li
+                style="
+                  position: relative;
+                  display: flex;
+                  background-color: #edf2fa;
+                "
+                id="search"
+              >
+                <div
+                  id="functions"
+                  class="material-icons functions"
+                  onclick="onClickFunctions(this)"
+                  style="background: transparent"
+                >
+                  search
+                </div>
+                <div
+                  contenteditable="true"
+                  class="search"
+                  id="searchInput"
+                  style="padding-left: 10px"
+                >
+                  Find in sheet
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="math-position">
+            <div id="position">Null</div>
+            <div
+              class="vertical-line"
+              style=" padding: 0.5px"
+            ></div>
+            <div id="math" style="align-items: center; max-width: 100vw">
+              
+              <img id="fx-image" src="fx.png" alt="" width="20px" style="padding: 10px;"/>
+              <div
+              class="vertical-line"
+              style=" padding: 0.5px"
+            ></div>
+              <div
+                style="
+                  width: 100vw;
+                  box-sizing: border-box;
+                  padding-left: 10px;
+                  padding-right: 10px;
+                  outline: none;
+                  overflow-y: scroll;
+                  max-height: 25px;
+                  scroll-padding: 100px;
+                "
+                contenteditable="true"
+                id="formulas" class=".formula-bar"
+              ></div>
+            </div>
           </div>
         </div>
+      </header>
+      <div class="dropdown"></div>
+
+      <!-- footer-->
+
+      <div id="footer">
+        <div class="material-icons" id="addSheet">add</div>
+        <div class="sheets" id="sheets"></div>
       </div>
-    </div>
-    <script src="./script.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </main>
+
+    <script src="options.js"></script>
+    <script src="script.js"></script>
+    <script src="function.js"></script>
   </body>
 </html>
