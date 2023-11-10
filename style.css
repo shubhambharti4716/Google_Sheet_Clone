@@ -323,8 +323,10 @@ background-color: white;
   display: flex;
   color: #444746;
   padding: 7px;
+  margin: 7px;
   font-size: 15px;
   font-weight: 700;
+  
 }
 
 .arrow-button {
