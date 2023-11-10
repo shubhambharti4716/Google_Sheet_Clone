@@ -24,7 +24,7 @@ let copiedCell = null;
 let activeOptionsState;
 
 function onCellFocus(e) {
-  highlightRowAndColoumn(e);
+  highlightRowAndColumn(e);
 
   if (activeCell && activeCell.id === e.target.id) return;
 
@@ -61,42 +61,38 @@ function onCellFocus(e) {
   }
 }
 
-function highlightRowAndColoumn(e) {
+function highlightRowAndColumn(e) {
   const currentId = e.target;
-  const coloumnId = e.target.parentNode.children[0];
+  const ColumnId = e.target.parentNode.children[0];
   const parenNode = e.target.parentNode.parentNode;
-  const rowId = currentId.id.replace(coloumnId.innerText, "");
+  const rowId = currentId.id.replace(ColumnId.innerText, "");
   const num = rowId.charCodeAt(0) - 65;
   const rowElement = document.getElementById(rowId);
 
   const changeColumnColor = parenNode.children[0].children[num + 1];
 
-  coloumnId.style.backgroundColor = "#D3E3FD";
+  ColumnId.style.backgroundColor = "#D3E3FD";
   changeColumnColor.style.backgroundColor = "#D3E3FD";
   currentId.style.border = "none";
   currentId.style.border = "1px solid #135dd2";
   position.innerText = currentId.id;
   formulas.innerText = currentId.innerText.trim();
-  console.log(num, rowId);
 }
 
 function onCellBlur(e) {
   const currentId = e.target;
-  const coloumnId = e.target.parentNode.children[0];
+  const ColumnId = e.target.parentNode.children[0];
   const parenNode = e.target.parentNode.parentNode;
-  const rowId = currentId.id.replace(coloumnId.innerText, "");
+  const rowId = currentId.id.replace(ColumnId.innerText, "");
   const num = rowId.charCodeAt(0) - 65;
   const rowElement = document.getElementById(rowId);
 
   const changeColumnColor = parenNode.children[0].children[num + 1];
 
-  coloumnId.style.backgroundColor = "white";
+  ColumnId.style.backgroundColor = "white";
   changeColumnColor.style.backgroundColor = "white";
 
   previousCell = e.target;
-  // activeSheetObject[e.target.id].content = e.target.innerText;
-
-  // formulas.innerText = "";
 }
 
 function onCellInput(e) {
